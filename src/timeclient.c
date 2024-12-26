@@ -1,5 +1,7 @@
 
-#include "timeclient.h"
+//A simple client program that connects to a server and receives the current time from the server. 
+//(making that at literaly 1 am)
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,6 +39,6 @@ int main() {
 
     // Close the socket
     close(client_socket);
-    
+
     return 0;
 }
