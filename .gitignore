@@ -1,7 +1,8 @@
 # Build files
 *.o
 *.exe
-timeserver
+tcp_server
+tcp_client
 
 # VS Code files
 .vscode/

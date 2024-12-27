@@ -28,15 +28,59 @@ int main() {
     // Listen for incoming connections
     listen(server_socket, 5);
 
+    if (server_socket == -1) {
+        printf("There was an error creating the server socket\n");
+        perror("server_socket");
+        close(server_socket);
+        return 1;
+    }
+
+    if (listen(server_socket, 5) == -1) {
+        printf("There was an error listening on the server socket\n");
+        perror("listen");
+        close(server_socket);
+        return 1;
+    }
+
     // Accept a connection
     int client_socket;
     client_socket = accept(server_socket, NULL/*struct sockaddr*/, NULL/*socklen_t*/);//we cna send and receive data from client_socket
 
+    if(client_socket == -1) {
+        printf("There was an error accepting the client socket\n");
+        perror("accept");
+        close(server_socket);
+        return 1;
+    }
+
     // Send data to the client
     send(client_socket, server_message, sizeof(server_message), 0);
+    if(send(client_socket, server_message, sizeof(server_message), 0) == -1) {
+        printf("There was an error sending the message to the client\n");
+        perror("send");
+        close(client_socket);
+        close(server_socket);
+        return 1;
+    }
+
+    // Close the client socket
+    close(client_socket);
+
+    if(close(client_socket) == -1) {
+        printf("There was an error closing the client socket\n");
+        perror("close");
+        close(server_socket);
+        return 1;
+    }
 
     // Close the socket 
     close(server_socket);
+
+    if(close(server_socket) == -1) {
+        printf("There was an error closing the server socket\n");
+        perror("close");
+        return 1;
+    }
 
     return 0;
 }
