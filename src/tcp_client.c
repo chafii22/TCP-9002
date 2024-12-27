@@ -36,15 +36,16 @@ int main() {
 
     // Receive data from the server
     char server_response[256];
-    recv(client_socket, &server_response, sizeof(server_response), 0);
+    ssize_t bytes_received = recv(client_socket, &server_response, sizeof(server_response), 0);
 
     // Check if the data was received
-    if (server_response == -1) {
+    if (bytes_received == -1) {
         printf("There was an error receiving data from the remote socket\n");
         perror("recv");
         close(client_socket);
         return 1;
     }
+    server_response[bytes_received] = '\0';
 
     // Print out the server's response
     printf("The server sent the data: %s\n", server_response);

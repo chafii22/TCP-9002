@@ -16,6 +16,13 @@ int main() {
     int server_socket;
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
 
+    if (server_socket == -1) {
+        printf("There was an error creating the server socket\n");
+        perror("server_socket");
+        close(server_socket);
+        return 1;
+    }
+    
     // Define the server address
     struct sockaddr_in server_address;
     server_address.sin_port = htons(9002);
@@ -28,12 +35,7 @@ int main() {
     // Listen for incoming connections
     listen(server_socket, 5);
 
-    if (server_socket == -1) {
-        printf("There was an error creating the server socket\n");
-        perror("server_socket");
-        close(server_socket);
-        return 1;
-    }
+
 
     if (listen(server_socket, 5) == -1) {
         printf("There was an error listening on the server socket\n");
@@ -84,4 +86,3 @@ int main() {
 
     return 0;
 }
-
