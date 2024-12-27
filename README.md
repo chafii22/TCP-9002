@@ -1,6 +1,6 @@
 
-# TRC Protocol
+# TCP Project
 
 ## Overview
 
-The TRC (Trust Relay Chain) protocol is designed to facilitate secure and efficient communication between distributed systems. This protocol is essential for ensuring trust and integrity in data exchanges across various platforms.
+This project implements a basic TCP server-client architecture using C. The server listens for incoming connections and allows clients to communicate by sending and receiving messages.
