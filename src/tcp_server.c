@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -19,7 +17,7 @@ int main() {
 
     if (server_socket == -1) {
         printf("There was an error creating the server socket\n");
-        fprintf(stderr, "Error");
+        perror("Error creating the server socket"); 
         close(server_socket);
         return 1;
     }
@@ -36,22 +34,20 @@ int main() {
     // Listen for incoming connections
     listen(server_socket, 5);
 
-
-
     if (listen(server_socket, 5) == -1) {
         printf("There was an error listening on the server socket\n");
-        fprintf(stderr, "Error");
+        perror("Error listening on the server socket");
         close(server_socket);
         return 1;
     }
 
     // Accept a connection
     int client_socket;
-    client_socket = accept(server_socket, NULL/*struct sockaddr*/, NULL/*socklen_t*/);//we cna send and receive data from client_socket
+    client_socket = accept(server_socket, NULL, NULL);
 
     if(client_socket == -1) {
         printf("There was an error accepting the client socket\n");
-        fprintf(stderr, "Error");
+        perror("Error accepting the client socket");
         close(server_socket);
         return 1;
     }
@@ -61,19 +57,18 @@ int main() {
 
     if(send(client_socket, server_message, sizeof(server_message), 0) == -1) {
         printf("There was an error sending the message to the client\n");
-        fprintf(stderr, "Error");
+        perror("Error sending the message to the client");
         close(client_socket);
         close(server_socket);
         return 1;
     }
-
 
     // Close the socket 
     close(server_socket);
 
     if(close(server_socket) == -1) {
         printf("There was an error closing the server socket\n");
-        fprintf(stderr, "Error");
+        perror("Error closing the server socket");
         return 1;
     }
 
