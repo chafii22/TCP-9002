@@ -63,8 +63,11 @@ int main() {
         return 1;
     }
 
-    // Close the socket 
-    close(server_socket);
+    if(close(client_socket) == -1) {
+        printf("There was an error closing the client socket\n");
+        perror("Error closing the client socket");
+        return 1;
+    }
 
     if(close(server_socket) == -1) {
         printf("There was an error closing the server socket\n");

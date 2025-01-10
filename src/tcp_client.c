@@ -51,9 +51,6 @@ int main() {
     // Print out the server's response
     printf("The server sent the data: %s\n", server_response);
 
-    // Close the socket
-    close(client_socket);
-
     if(close(client_socket) == -1) {
         printf("There was an error closing the client socket\n");
         perror("close");
