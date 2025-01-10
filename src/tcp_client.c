@@ -1,6 +1,6 @@
 
 //A simple client program that connects to a server and receives the current time from the server. 
-//(making that at literaly 1AM in the morning)
+//(making that at literaly 1AM in the morning)(fixing it tooke days, i guess is not a simple one after all :) )
 
 #include <stdio.h>
 #include <stdlib.h>
