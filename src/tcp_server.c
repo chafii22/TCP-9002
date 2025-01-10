@@ -7,6 +7,7 @@
 #include <sys/types.h>
 
 #include <netinet/in.h>
+#include <unistd.h> // close() function
 
 int main() {
 
@@ -18,7 +19,7 @@ int main() {
 
     if (server_socket == -1) {
         printf("There was an error creating the server socket\n");
-        perror("server_socket");
+        fprintf(stderr, "Error");
         close(server_socket);
         return 1;
     }
@@ -39,7 +40,7 @@ int main() {
 
     if (listen(server_socket, 5) == -1) {
         printf("There was an error listening on the server socket\n");
-        perror("listen");
+        fprintf(stderr, "Error");
         close(server_socket);
         return 1;
     }
@@ -50,37 +51,29 @@ int main() {
 
     if(client_socket == -1) {
         printf("There was an error accepting the client socket\n");
-        perror("accept");
+        fprintf(stderr, "Error");
         close(server_socket);
         return 1;
     }
 
     // Send data to the client
     send(client_socket, server_message, sizeof(server_message), 0);
+
     if(send(client_socket, server_message, sizeof(server_message), 0) == -1) {
         printf("There was an error sending the message to the client\n");
-        perror("send");
+        fprintf(stderr, "Error");
         close(client_socket);
         close(server_socket);
         return 1;
     }
 
-    // Close the client socket
-    close(client_socket);
-
-    if(close(client_socket) == -1) {
-        printf("There was an error closing the client socket\n");
-        perror("close");
-        close(server_socket);
-        return 1;
-    }
 
     // Close the socket 
     close(server_socket);
 
     if(close(server_socket) == -1) {
         printf("There was an error closing the server socket\n");
-        perror("close");
+        fprintf(stderr, "Error");
         return 1;
     }
 
